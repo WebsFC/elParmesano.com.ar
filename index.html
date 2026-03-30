@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Parmesano – Comidas Caseras al Paso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --yellow:#F5C800;--black:#0E0E0E;--dark:#161616;--gray:#2a2a2a;--text:#e8e8e8;--muted:#888; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden}
+  nav{position:sticky;top:0;z-index:100;background:rgba(14,14,14,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,200,0,0.15);display:flex;justify-content:space-between;align-items:center;padding:0.9rem 2rem}
+  .nav-brand{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--yellow);letter-spacing:0.05em;text-decoration:none}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--yellow)}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer}
+  .nav-toggle span{display:block;width:24px;height:2px;background:var(--yellow);margin:5px 0}
+  header{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:2rem}
+  .header-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(245,200,0,0.13) 0%,transparent 70%),repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(245,200,0,0.03) 40px,rgba(245,200,0,0.03) 41px);z-index:0}
+  .hero-tag{font-size:0.75rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--yellow);border:1px solid rgba(245,200,0,0.4);padding:0.35rem 1.1rem;border-radius:2px;margin-bottom:1.8rem;position:relative;z-index:1;animation:fadeUp 0.6s ease both}
+  .hero-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,14vw,11rem);line-height:0.92;color:var(--yellow);position:relative;z-index:1;animation:fadeUp 0.7s 0.1s ease both;text-shadow:0 0 80px rgba(245,200,0,0.2);white-space:nowrap}
+  .hero-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.5vw,2rem);letter-spacing:0.18em;color:var(--text);margin-top:0.6rem;position:relative;z-index:1;animation:fadeUp 0.7s 0.2s ease both}
+  .hero-divider{width:60px;height:3px;background:var(--yellow);margin:1.6rem auto;position:relative;z-index:1;animation:fadeUp 0.7s 0.3s ease both}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;animation:fadeUp 0.7s 0.4s ease both}
+  .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;z-index:1;animation:bounce 2s 1s infinite}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.8rem;border-radius:3px;transition:all 0.2s;cursor:pointer;border:none}
+  .btn-primary{background:var(--yellow);color:var(--black)}
+  .btn-primary:hover{background:#ffd700;transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,200,0,0.3)}
+  .btn-outline{background:transparent;color:var(--yellow);border:2px solid var(--yellow)}
+  .btn-outline:hover{background:rgba(245,200,0,0.08);transform:translateY(-2px)}
+  section{padding:6rem 2rem}
+  .section-inner{max-width:1100px;margin:0 auto}
+  .section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.6rem}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,5rem);line-height:0.92;color:var(--text);margin-bottom:1rem}
+  .section-line{width:50px;height:3px;background:var(--yellow);margin-bottom:3rem}
+  #menu{background:var(--dark)}
+  .menu-notice{background:rgba(245,200,0,0.07);border:1px solid rgba(245,200,0,0.25);border-left:4px solid var(--yellow);padding:1rem 1.4rem;border-radius:3px;margin-bottom:3rem;font-size:0.9rem;color:var(--text);display:flex;align-items:flex-start;gap:0.8rem}
+  .menu-cats{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
+  .cat-btn{font-family:'Barlow',sans-serif;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:2px;border:1.5px solid rgba(245,200,0,0.3);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s}
+  .cat-btn.active,.cat-btn:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+  .menu-card{background:var(--gray);border-radius:6px;overflow:hidden;display:flex;transition:transform 0.2s,box-shadow 0.2s;border:1px solid rgba(255,255,255,0.04)}
+  .menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.4)}
+  .menu-card-img{width:110px;min-height:110px;object-fit:cover;flex-shrink:0;background:#1a1a1a}
+  .menu-card-body{padding:0.9rem 1rem;display:flex;flex-direction:column;justify-content:center}
+  .menu-card-cat{font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.25rem}
+  .menu-card-name{font-family:'Barlow',sans-serif;font-weight:700;font-size:1rem;line-height:1.2;color:var(--text);margin-bottom:0.25rem}
+  .menu-card-desc{font-size:0.8rem;color:var(--muted);line-height:1.4}
+  .menu-card.hidden{display:none}
+  #reviews{background:var(--black)}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+  .review-card{background:var(--dark);border:1px solid rgba(255,255,255,0.05);border-radius:6px;padding:1.6rem;transition:border-color 0.2s}
+  .review-card:hover{border-color:rgba(245,200,0,0.25)}
+  .review-quote{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(245,200,0,0.15);line-height:0.6;margin-bottom:0.8rem}
+  .review-stars{color:var(--yellow);font-size:0.85rem;margin-bottom:0.8rem}
+  .review-text{font-size:0.92rem;line-height:1.65;color:var(--text);font-style:italic}
+  .review-author{margin-top:1rem;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow)}
+  #info{background:var(--dark)}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+  .info-block-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--yellow);margin-bottom:1.2rem}
+  .hours-table{width:100%;border-collapse:collapse}
+  .hours-table tr{border-bottom:1px solid rgba(255,255,255,0.05)}
+  .hours-table tr:last-child{border-bottom:none}
+  .hours-table td{padding:0.55rem 0;font-size:0.9rem;color:var(--text)}
+  .hours-table td:last-child{text-align:right;color:var(--muted)}
+  .hours-table tr.today td{color:var(--yellow);font-weight:700}
+  .closed{color:#e05555!important}
+  .contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.4rem}
+  .contact-icon{width:40px;height:40px;background:rgba(245,200,0,0.1);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .contact-icon svg{width:18px;color:var(--yellow)}
+  .contact-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
+  .contact-value{font-size:0.95rem;color:var(--text)}
+  .contact-value a{color:var(--yellow);text-decoration:none}
+  footer{background:var(--black);border-top:1px solid rgba(245,200,0,0.15);padding:2.5rem 2rem;text-align:center}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--yellow);margin-bottom:0.4rem}
+  .footer-sub{color:var(--muted);font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+  .social-links{display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+  .social-link{display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--muted);font-size:0.82rem;font-weight:600;padding:0.5rem 1rem;border:1px solid rgba(255,255,255,0.08);border-radius:3px;transition:all 0.2s}
+  .social-link:hover{color:var(--yellow);border-color:rgba(245,200,0,0.3);background:rgba(245,200,0,0.05)}
+  .footer-copy{color:rgba(255,255,255,0.2);font-size:0.75rem}
+  .wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:0.85rem;padding:0.75rem 1.2rem 0.75rem 0.9rem;border-radius:50px;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.2s}
+  .wa-float:hover{transform:scale(1.04)}
+  .wa-float svg{width:22px}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+  @media(max-width:640px){
+    nav{padding:0.9rem 1.2rem}
+    .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(14,14,14,0.98);padding:1rem 1.5rem;border-bottom:1px solid rgba(245,200,0,0.15)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .nav-toggle{display:block}
+    section{padding:4rem 1.2rem}
+    .hero-logo{font-size:clamp(3rem,16vw,7rem);white-space:normal}
+    .menu-grid{grid-template-columns:1fr}
+    .reviews-grid{grid-template-columns:1fr}
+    .info-grid{grid-template-columns:1fr}
+    .menu-card-img{width:90px;min-height:90px}
+  }
+</style>
+</head>
+<body>
+
+<a class="wa-float" href="https://wa.me/5491168068230" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.126 1.527 5.857L.057 23.882a.5.5 0 0 0 .612.612l6.057-1.475A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.695-.504-5.24-1.385l-.376-.215-3.898.949.968-3.878-.234-.388A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  Consultá precios
+</a>
+
+<nav id="topnav">
+  <a class="nav-brand" href="#">El Parmesano</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#reviews">Opiniones</a></li>
+    <li><a href="#info">Horarios</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+
+<header>
+  <div class="header-bg"></div>
+  <div class="hero-tag">Quilmes · Desde el barrio</div>
+  <div class="hero-logo">El Parmesano</div>
+  <div class="hero-sub">Comidas Caseras al Paso</div>
+  <div class="hero-divider"></div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#menu">Ver Menú</a>
+    <a class="btn btn-outline" href="https://wa.me/5491168068230" target="_blank">Pedir por WhatsApp</a>
+  </div>
+  <div class="scroll-hint">
+    <svg width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Deslizá
+  </div>
+</header>
+
+<section id="menu">
+  <div class="section-inner">
+    <p class="section-label">Lo que hacemos</p>
+    <h2 class="section-title">Nuestro Menú</h2>
+    <div class="section-line"></div>
+    <div class="menu-notice">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5C800" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span><strong>Los precios se actualizan constantemente.</strong> Para conocer los valores del día escribinos al WhatsApp o pedí por PedidosYa.</span>
+    </div>
+    <div class="menu-cats">
+      <button class="cat-btn active" onclick="filterMenu('all',this)">Todo</button>
+      <button class="cat-btn" onclick="filterMenu('pizza',this)">Pizzas</button>
+      <button class="cat-btn" onclick="filterMenu('sandwich',this)">Sándwiches</button>
+      <button class="cat-btn" onclick="filterMenu('milanesa',this)">Milanesas</button>
+      <button class="cat-btn" onclick="filterMenu('empanada',this)">Empanadas</button>
+      <button class="cat-btn" onclick="filterMenu('acompañar',this)">Acompañar</button>
+    </div>
+    <div class="menu-grid" id="menuGrid">
+
+      <div class="menu-card" data-cat="pizza">
+        <img class="menu-card-img" src="/elParmesano.com.ar/pizza_muzza.jpg" alt="Pizza Muzzarella">
+        <div class="menu-card-body"><div class="menu-card-cat">Pizza</div><div class="menu-card-name">Pizza Muzzarella</div><div class="menu-card-desc">Grande</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="pizza">
+        <img class="menu-card-img" src="/elParmesano.com.ar/pizza_cebolla.jpg" alt="Pizza Cebolla">
+        <div class="menu-card-body"><div class="menu-card-cat">Pizza</div><div class="menu-card-name">Pizza Cebolla</div><div class="menu-card-desc">Grande</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="pizza">
+        <img class="menu-card-img" src="/elParmesano.com.ar/pizza_jamon.jpg" alt="Pizza Jamón y Morrón">
+        <div class="menu-card-body"><div class="menu-card-cat">Pizza</div><div class="menu-card-name">Pizza Jamón y Morrón</div><div class="menu-card-desc">Grande</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="sandwich">
+        <img class="menu-card-img" src="/elParmesano.com.ar/sanguche_clasico.jpg" alt="Sánguche Clásico">
+        <div class="menu-card-body"><div class="menu-card-cat">Sándwich</div><div class="menu-card-name">Sánguche Clásico</div><div class="menu-card-desc">Jamón y Queso / Salame y Queso</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="sandwich">
+        <img class="menu-card-img" src="/elParmesano.com.ar/sanguche_especial.jpg" alt="Sánguche Especial">
+        <div class="menu-card-body"><div class="menu-card-cat">Sándwich</div><div class="menu-card-name">Sánguche Especial</div><div class="menu-card-desc">Queso y Jamón Crudo / Queso y Panceta</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="sandwich milanesa">
+        <img class="menu-card-img" src="/elParmesano.com.ar/sanguche_mila_comp.jpg" alt="Sánguche de Mila Completo">
+        <div class="menu-card-body"><div class="menu-card-cat">Sándwich</div><div class="menu-card-name">Sánguche de Mila Completo</div><div class="menu-card-desc">Lechuga, Tomate, Jamón y Queso</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="sandwich milanesa">
+        <img class="menu-card-img" src="/elParmesano.com.ar/sanguche_mila_jyq.jpg" alt="Sánguche de Mila JyQ">
+        <div class="menu-card-body"><div class="menu-card-cat">Sándwich</div><div class="menu-card-name">Sánguche de Mila</div><div class="menu-card-desc">Con Jamón y Queso</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="sandwich milanesa">
+        <img class="menu-card-img" src="/elParmesano.com.ar/sanguche_mila_lyt.jpg" alt="Sánguche de Mila LyT">
+        <div class="menu-card-body"><div class="menu-card-cat">Sándwich</div><div class="menu-card-name">Sánguche de Mila</div><div class="menu-card-desc">Con Lechuga y Tomate</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="milanesa">
+        <img class="menu-card-img" src="/elParmesano.com.ar/milanga_napo.jpg" alt="Milanesa Napolitana">
+        <div class="menu-card-body"><div class="menu-card-cat">Milanesa</div><div class="menu-card-name">Milanesa Napolitana</div><div class="menu-card-desc">Con papas fritas al plato</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="milanesa">
+        <img class="menu-card-img" src="/elParmesano.com.ar/milanga_fritas.jpg" alt="Milanesa Con Fritas">
+        <div class="menu-card-body"><div class="menu-card-cat">Milanesa</div><div class="menu-card-name">Milanesa Con Fritas</div><div class="menu-card-desc">Al plato</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="empanada">
+        <img class="menu-card-img" src="/elParmesano.com.ar/empanada_pollo.jpg" alt="Empanada de Pollo">
+        <div class="menu-card-body"><div class="menu-card-cat">Empanada</div><div class="menu-card-name">Empanada de Pollo</div><div class="menu-card-desc">Casera, bien rellena</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="empanada">
+        <img class="menu-card-img" src="/elParmesano.com.ar/empanada_carne.jpg" alt="Empanada de Carne">
+        <div class="menu-card-body"><div class="menu-card-cat">Empanada</div><div class="menu-card-name">Empanada de Carne</div><div class="menu-card-desc">Casera, bien rellena</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="empanada">
+        <img class="menu-card-img" src="/elParmesano.com.ar/empanadas_bandeja.jpg" alt="Empanadas Clásicas">
+        <div class="menu-card-body"><div class="menu-card-cat">Empanada</div><div class="menu-card-name">Empanadas Clásicas</div><div class="menu-card-desc">Carne / Pollo / Humita / Jamón y Queso</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="empanada">
+        <img class="menu-card-img" src="/elParmesano.com.ar/empanadas_especiales.jpg" alt="Empanadas Especiales">
+        <div class="menu-card-body"><div class="menu-card-cat">Empanada</div><div class="menu-card-name">Empanadas Especiales</div><div class="menu-card-desc">Caprese / Carne a cuchillo / Queso y Cebolla</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="acompañar">
+        <img class="menu-card-img" src="/elParmesano.com.ar/medialunas.jpg" alt="Medialunas con Jamón y Queso">
+        <div class="menu-card-body"><div class="menu-card-cat">Acompañar</div><div class="menu-card-name">Medialunas con Jamón y Queso</div><div class="menu-card-desc">2 unidades</div></div>
+      </div>
+
+      <div class="menu-card" data-cat="acompañar">
+        <img class="menu-card-img" src="/elParmesano.com.ar/papas_fritas.jpg" alt="Papas Fritas">
+        <div class="menu-card-body"><div class="menu-card-cat">Acompañar</div><div class="menu-card-name">Papas Fritas</div><div class="menu-card-desc">Porción</div></div>
+      </div>
+
+    </div>
+    <div style="margin-top:2.5rem;text-align:center;">
+      <a class="btn btn-primary" href="https://wa.me/5491168068230" target="_blank">💬 Consultá precios por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="section-inner">
+    <p class="section-label">Lo que dicen</p>
+    <h2 class="section-title">Opiniones de clientes</h2>
+    <div class="section-line"></div>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="review-quote">"</div><div class="review-stars">★★★★★</div><p class="review-text">Milanesas super caseras, carne sabrosa y el pan una manteca.</p><div class="review-author">— Cliente satisfecho</div></div>
+      <div class="review-card"><div class="review-quote">"</div><div class="review-stars">★★★★★</div><p class="review-text">Muy buenos sándwiches hechos al momento. Y muy ameno el trato de sus dueños.</p><div class="review-author">— Cliente satisfecho</div></div>
+      <div class="review-card"><div class="review-quote">"</div><div class="review-stars">★★★★★</div><p class="review-text">Las mejores milanesas del condado, más ricas que las de mi abuela. Las empanadas súper rellenas y riquísimas.</p><div class="review-author">— Cliente satisfecho</div></div>
+      <div class="review-card"><div class="review-quote">"</div><div class="review-stars">★★★★★</div><p class="review-text">Compré empanadas de carne y pollo, y hoy sánguche de Mila. Los mejores que compré en mi vida. Los amo.</p><div class="review-author">— Cliente satisfecho</div></div>
+      <div class="review-card"><div class="review-quote">"</div><div class="review-stars">★★★★★</div><p class="review-text">Una re milanga, rica, liviana y más grande que el pan. Trabajan a dos manos literal. Todo mi apoyo.</p><div class="review-author">— Cliente satisfecho</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="section-inner">
+    <p class="section-label">Encontranos</p>
+    <h2 class="section-title">Horarios & Contacto</h2>
+    <div class="section-line"></div>
+    <div class="info-grid">
+      <div>
+        <div class="info-block-title">Horarios de atención</div>
+        <table class="hours-table">
+          <tr><td>Lunes</td><td>9:00 – 17:00</td></tr>
+          <tr><td>Martes</td><td>9:00 – 17:00</td></tr>
+          <tr><td>Miércoles</td><td>9:00 – 17:00</td></tr>
+          <tr><td>Jueves</td><td>9:00 – 17:00</td></tr>
+          <tr><td>Viernes</td><td>9:00 – 17:00</td></tr>
+          <tr><td>Sábado</td><td>9:00 – 15:30</td></tr>
+          <tr><td>Domingo</td><td class="closed">Cerrado</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="info-block-title">Contacto</div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-label">Dirección</div><div class="contact-value">Nicolás Videla 103, Quilmes<br>Provincia de Buenos Aires</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.126 1.527 5.857L.057 23.882a.5.5 0 0 0 .612.612l6.057-1.475A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.695-.504-5.24-1.385l-.376-.215-3.898.949.968-3.878-.234-.388A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg></div>
+          <div><div class="contact-label">WhatsApp</div><div class="contact-value"><a href="https://wa.me/5491168068230">+54 9 11 6806-8230</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div><div class="contact-label">Instagram</div><div class="contact-value"><a href="https://instagram.com/elparmesano24" target="_blank">@elparmesano24</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg></div>
+          <div><div class="contact-label">Delivery</div><div class="contact-value">Disponible en <strong>PedidosYa</strong></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">El Parmesano</div>
+  <div class="footer-sub">Comidas Caseras al Paso · Quilmes</div>
+  <div class="social-links">
+    <a class="social-link" href="https://wa.me/5491168068230" target="_blank">WhatsApp</a>
+    <a class="social-link" href="https://instagram.com/elparmesano24" target="_blank">@elparmesano24</a>
+  </div>
+  <div class="footer-copy">© 2025 El Parmesano · Nicolás Videla 103, Quilmes</div>
+</footer>
+
+<script>
+  const toggle=document.getElementById('navToggle');
+  const links=document.getElementById('navLinks');
+  toggle.addEventListener('click',()=>links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+  const days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const today=days[new Date().getDay()];
+  document.querySelectorAll('.hours-table tr').forEach(row=>{
+    if(row.cells[0]&&row.cells[0].textContent.trim()===today)row.classList.add('today');
+  });
+  function filterMenu(cat,btn){
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-card').forEach(card=>{
+      card.classList.toggle('hidden',cat!=='all'&&!card.dataset.cat.includes(cat));
+    });
+  }
+</script>
+</body>
+</html>
